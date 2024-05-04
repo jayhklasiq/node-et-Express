@@ -1,13 +1,15 @@
 const express = require('express');
 const app = express();
 
+
+
 app.get("/", function(req, res) {
   res.sendFile(__dirname + "/views/index.html");
 });
 
-app.get("/json", function(req, res) {
+app.get("/json", process.env.MESSAGE_STYLE, function(req, res) {
   res.json({
-    message: "Hello json"
+    message: "Hello json",
   })
 })
 
