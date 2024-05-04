@@ -3,15 +3,25 @@ const app = express();
 
 
 
-app.get("/", function(req, res) {
+app.get("/", function (req, res) {
   res.sendFile(__dirname + "/views/index.html");
 });
 
-app.get("/json", process.env.MESSAGE_STYLE, function(req, res) {
-  res.json({
-    message: "Hello json",
-  })
-})
+
+app.get("/json", function (req, res) {
+  let response = "Hello json";
+  if (process.env.MESSAGE_STYLE === 'uppercase') {
+    res.json({
+      message: response.toUpperCase()
+    });
+  } else {
+    res.json({
+      message: response
+    });
+  }
+});
+
+
 
 app.use("/public", express.static(__dirname + "/public"));
 
