@@ -1,16 +1,12 @@
 const express = require('express');
 const app = express();
 require('dotenv').config();
-const bodyParser = require('body-parser')
 
 app.use("/", function(req, res, next) {
   console.log(req.method + " " + req.path + " - " + req.ip);
   next();
 });
 
-app.use("/public", express.static(__dirname + "/public"));
-
-app.use(bodyParser.urlencoded({extended: false}));
 
 app.get("/", function (req, res) {
   res.sendFile(__dirname + "/views/index.html");
@@ -38,27 +34,10 @@ app.get("/now", function(req, res, next) {
 });
 
 app.get("/:word/echo", function(req, res) {
-  res.json({ echo: req.params.word })
-});
+  res.json({ echo: req.params.word });
+}
 
-
-//This is an api endpoint mounted at GET/name with the first and last name encoded in a query string. 
-app.route("/name")
-.get(function(req, res) {
-  const firstName = req.query.first;
-  const lastName = req.query.last;
-  const fullName = `${firstName} ${lastName}`;
-  res.json({ name: fullName });
-})
-.post(function(req, res) {
-  const firstName = req.body.first;
-  const lastName = req.body.last;
-  const fullName = `${firstName} ${lastName}`;
-  res.json({ name: fullName });
-});
-
-
-
+app.use("/public", express.static(__dirname + "/public"));
 
 app.listen(3500, () => {
   console.log('Server is running on http://localhost:3500');
