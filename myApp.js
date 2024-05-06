@@ -54,9 +54,17 @@ app.route("/name")
   const firstName = req.body.first;
   const lastName = req.body.last;
   const fullName = `${firstName} ${lastName}`;
-  res.json({ name: fullName });
+  res.json({ name: fullName })
+    ;
 });
 
+
+//this api uses the body-parser middleware to parse the request body and return the parsed data in the response.
+
+app.post('/submit-form', function(req, res){
+  const formData = req.body;
+  res.send(formData);
+});
 
 
 
